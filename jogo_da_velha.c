@@ -29,20 +29,20 @@ void ler_jogada(char casas[3][3], char turno) {
 Estado validar_jogo(char casas[3][3]) {
   // horizontal
   for (int i = 0; i < 3; i++) {
-    if (casas[i][0] == casas[i][1] && casas[i][0] == casas[i][2])
+    if (casas[i][0] == casas[i][1] && casas[i][0] == casas[i][2] && casas[i][0] != ' ')
       return Vitoria;
   }
 
   // vertical
   for (int i = 0; i < 3; i++) {
-    if (casas[0][i] == casas[1][i] && casas[0][i] == casas[2][i])
+    if (casas[0][i] == casas[1][i] && casas[0][i] == casas[2][i] && casas[0][i] != ' ')
       return Vitoria;
   }
 
   // diagonal
-  if (casas[0][0] == casas[1][1] && casas[0][0] == casas[2][2])
+  if (casas[0][0] == casas[1][1] && casas[0][0] == casas[2][2] && casas[0][0] != ' ')
     return Vitoria;
-  if (casas[2][0] == casas[1][1] && casas[2][0] == casas[0][2])
+  if (casas[2][0] == casas[1][1] && casas[2][0] == casas[0][2] && casas[2][0] != ' ')
     return Vitoria;
 
   // velha
