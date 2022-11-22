@@ -83,10 +83,14 @@ int main() {
     // validar jogo (ver se houve vitória)
     estado_do_jogo = validar_jogo(casas);
 
+
+
     // se houver vitória, mostrar
     if (estado_do_jogo == Vitoria) {
       printf("Jogador %c venceu\n", turno);
+      // TODO: Mostrar jogo no final
 
+      // TODO: Isso não funciona
       printf("Jogar novamente? [s/n]");
       scanf("%c", &continuar);
 
