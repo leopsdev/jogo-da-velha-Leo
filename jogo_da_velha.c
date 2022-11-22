@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef enum { Continua, Vitoria, Velha } Estado;
 
@@ -19,9 +20,10 @@ void mostrar_jogo(char casas[3][3]) {
 void ler_jogada(char casas[3][3], char turno) {
   int linha, coluna;
 
+  // TODO: Colocar uma mensagem para quando a pessoa digitar algo inválido
   do {
     scanf("%d%d", &linha, &coluna);
-  } while ((linha < 0 || linha > 2) && (coluna < 0 || coluna > 2) && casas[linha][coluna] != ' ');
+  } while (((linha < 0 || linha > 2) && (coluna < 0 || coluna > 2)) || (casas[linha][coluna] != ' '));
 
   casas[linha][coluna] = turno;
 }
@@ -56,66 +58,60 @@ Estado validar_jogo(char casas[3][3]) {
   return Velha;
 }
 
+void limpar(char casas[3][3]) {
+  for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 3; j++)
+      casas[i][j] = ' ';
+}
+
 int main() {
   char casas[3][3] = {
     { ' ', ' ', ' '},
     { ' ', ' ', ' '},
     { ' ', ' ', ' '}
   };
-
   Estado estado_do_jogo = Continua;
-
   char turno = 'X';
-
   char continuar;
 
   while (estado_do_jogo == Continua) {
     printf("Vez do jogador %c\n", turno);
-
-    // mostrar tabuleiro
     mostrar_jogo(casas);
-
-    // TODO
-    // ler jogada do usuário (validar)
-    // colocar na posição
     ler_jogada(casas, turno);
-
-    // validar jogo (ver se houve vitória)
     estado_do_jogo = validar_jogo(casas);
 
-
-
-    // se houver vitória, mostrar
     if (estado_do_jogo == Vitoria) {
+      mostrar_jogo(casas);
       printf("Jogador %c venceu\n", turno);
-      // TODO: Mostrar jogo no final
 
-      // TODO: Isso não funciona
-      printf("Jogar novamente? [s/n]");
+      printf("Jogar novamente? [s/n] ");
+      getchar(); // Limpar buffer
       scanf("%c", &continuar);
 
       if (continuar == 's') {
         estado_do_jogo = Continua;
         turno = 'X';
+        limpar(casas);
         continue;
       }
     }
 
-    // se houver velha, mostrar
     if (estado_do_jogo == Velha) {
-      printf("O jogo deu velha");
+      mostrar_jogo(casas);
+      printf("O jogo deu velha\n");
 
-      printf("Jogar novamente? [s/n]");
+      printf("Jogar novamente? [s/n] ");
+      getchar();
       scanf("%c", &continuar);
 
       if (continuar == 's') {
         estado_do_jogo = Continua;
         turno = 'X';
+        limpar(casas);
         continue;
       }
     }
 
-    // mudar turno
     turno = (turno == 'X') ? 'O' : 'X'; 
   }
 
