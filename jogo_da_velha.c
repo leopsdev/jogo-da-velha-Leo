@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef enum { Continua, Vitoria, Velha } Estado;
+typedef enum { Continua, Vitoria, Empate } Estado;
 
 void mostrar_jogo(char casas[3][3]) {
   for (int i = 0; i < 3; i++) {
@@ -20,7 +20,7 @@ void mostrar_jogo(char casas[3][3]) {
 void ler_jogada(char casas[3][3], char turno) {
   int linha, coluna;
 
-  // TODO: Colocar uma mensagem para quando a pessoa digitar algo inválido
+  // TODO: Mostrar uma mensagem quando o jogador digitar algo inválido
   do {
     scanf("%d%d", &linha, &coluna);
   } while (((linha < 0 || linha > 2) && (coluna < 0 || coluna > 2)) || (casas[linha][coluna] != ' '));
@@ -47,7 +47,7 @@ Estado validar_jogo(char casas[3][3]) {
   if (casas[2][0] == casas[1][1] && casas[2][0] == casas[0][2] && casas[2][0] != ' ')
     return Vitoria;
 
-  // velha
+  // empate
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       if (casas[i][j] == ' ')
@@ -55,7 +55,7 @@ Estado validar_jogo(char casas[3][3]) {
     }
   }
 
-  return Velha;
+  return Empate;
 }
 
 void limpar(char casas[3][3]) {
@@ -96,7 +96,7 @@ int main() {
       }
     }
 
-    if (estado_do_jogo == Velha) {
+    if (estado_do_jogo == Empate) {
       mostrar_jogo(casas);
       printf("O jogo deu velha\n");
 
