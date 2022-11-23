@@ -14,6 +14,9 @@ void mostrar_jogo(char casas[3][3]) {
         printf("|");
       }
     }
+
+    if (i != 2)
+      printf("-----------\n");
   }
 }
 
@@ -75,12 +78,14 @@ int main() {
   char continuar;
 
   while (estado_do_jogo == Continua) {
+    system("clear"); // Limpar terminal
     printf("Vez do jogador %c\n", turno);
     mostrar_jogo(casas);
     ler_jogada(casas, turno);
     estado_do_jogo = validar_jogo(casas);
 
     if (estado_do_jogo == Vitoria) {
+      system("clear");
       mostrar_jogo(casas);
       printf("Jogador %c venceu\n", turno);
 
@@ -97,6 +102,7 @@ int main() {
     }
 
     if (estado_do_jogo == Empate) {
+      system("clear");
       mostrar_jogo(casas);
       printf("O jogo deu velha\n");
 
